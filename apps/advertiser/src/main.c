@@ -39,15 +39,18 @@ set_ble_addr(void)
 {
     int rc;
     ble_addr_t addr;
+    uint8_t hehe[6] = {0x66, 0x55, 0x44, 0x33, 0x22, 0x11};
 
     /* generate new non-resolvable private address */
     rc = ble_hs_id_gen_rnd(1, &addr);
     assert(rc == 0);
 
     /* set generated address */
-    rc = ble_hs_id_set_rnd(addr.val);
+    rc = ble_hs_id_set_rnd(hehe);
+    //rc = ble_hs_id_set_rnd(addr.val);
     assert(rc == 0);
 }
+
 
 static int
 adv_event(struct ble_gap_event *event, void *arg)

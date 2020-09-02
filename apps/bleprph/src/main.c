@@ -117,8 +117,8 @@ bleprph_advertise(void)
     fields.tx_pwr_lvl_is_present = 1;
     fields.tx_pwr_lvl = BLE_HS_ADV_TX_PWR_LVL_AUTO;
 
-    name = "MYnewtTest";
-    //name = ble_svc_gap_device_name();
+//    name = "MYnewtTest";
+    name = ble_svc_gap_device_name();
     fields.name = (uint8_t *)name;
     fields.name_len = strlen(name);
     fields.name_is_complete = 1;
@@ -145,6 +145,23 @@ bleprph_advertise(void)
         MODLOG_DFLT(ERROR, "error enabling advertisement; rc=%d\n", rc);
         return;
     }
+}
+
+static void
+set_ble_addr(void)
+{
+    int rc;
+    ble_addr_t addr;
+    uint8_t hehe[6] = {0x66, 0x55, 0x44, 0x33, 0x22, 0x11};
+
+    /* generate new non-resolvable private address */
+    rc = ble_hs_id_gen_rnd(1, &addr);
+    assert(rc == 0);
+
+    /* set generated address */
+    rc = ble_hs_id_set_rnd(hehe);
+    //rc = ble_hs_id_set_rnd(addr.val);
+    assert(rc == 0);
 }
 
 /**
@@ -242,6 +259,7 @@ bleprph_gap_event(struct ble_gap_event *event, void *arg)
                     event->subscribe.cur_indicate);
         return 0;
 
+
     case BLE_GAP_EVENT_MTU:
         MODLOG_DFLT(INFO, "mtu update event; conn_handle=%d cid=%d mtu=%d\n",
                     event->mtu.conn_handle,
@@ -286,6 +304,8 @@ static void
 bleprph_on_sync(void)
 {
     int rc;
+
+    set_ble_addr();
 
     /* Make sure we have proper identity address set (public preferred) */
     rc = ble_hs_util_ensure_addr(0);
