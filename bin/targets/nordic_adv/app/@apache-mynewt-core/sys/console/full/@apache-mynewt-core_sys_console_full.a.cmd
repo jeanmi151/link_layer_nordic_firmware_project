@@ -1,0 +1,9 @@
+arm-none-eabi-ar
+rcs
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_adv/app/@apache-mynewt-core/sys/console/full/@apache-mynewt-core_sys_console_full.a
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_adv/app/@apache-mynewt-core/sys/console/full/repos/apache-mynewt-core/sys/console/full/src/ble_monitor_console.o
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_adv/app/@apache-mynewt-core/sys/console/full/repos/apache-mynewt-core/sys/console/full/src/console.o
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_adv/app/@apache-mynewt-core/sys/console/full/repos/apache-mynewt-core/sys/console/full/src/console_fmt.o
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_adv/app/@apache-mynewt-core/sys/console/full/repos/apache-mynewt-core/sys/console/full/src/rtt_console.o
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_adv/app/@apache-mynewt-core/sys/console/full/repos/apache-mynewt-core/sys/console/full/src/ticks.o
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_adv/app/@apache-mynewt-core/sys/console/full/repos/apache-mynewt-core/sys/console/full/src/uart_console.o

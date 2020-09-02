@@ -1,0 +1,45 @@
+img_mgmt_state.o: \
+ repos/apache-mynewt-mcumgr/cmd/img_mgmt/src/img_mgmt_state.c \
+ repos/apache-mynewt-core/libc/baselibc/include/assert.h \
+ repos/apache-mynewt-core/kernel/os/include/os/os_fault.h \
+ bin/targets/nordic_end/generated/include/syscfg/syscfg.h \
+ repos/apache-mynewt-core/kernel/os/include/os/arch/cortex_m4/os/os_arch.h \
+ repos/apache-mynewt-core/hw/mcu/nordic/nrf52xxx/include/mcu/cmsis_nvic.h \
+ repos/apache-mynewt-core/hw/mcu/nordic/src/ext/nrfx/mdk/nrf.h \
+ repos/apache-mynewt-core/hw/mcu/nordic/src/ext/nrfx/mdk/nrf52840.h \
+ repos/apache-mynewt-core/hw/cmsis-core/src/ext/core_cm4.h \
+ repos/apache-mynewt-core/hw/cmsis-core/src/ext/cmsis_version.h \
+ repos/apache-mynewt-core/hw/cmsis-core/src/ext/cmsis_compiler.h \
+ repos/apache-mynewt-core/hw/cmsis-core/src/ext/cmsis_gcc.h \
+ repos/apache-mynewt-core/hw/cmsis-core/src/ext/mpu_armv7.h \
+ repos/apache-mynewt-core/hw/mcu/nordic/src/ext/nrfx/mdk/system_nrf52840.h \
+ repos/apache-mynewt-core/hw/mcu/nordic/src/ext/nrfx/mdk/system_nrf.h \
+ repos/apache-mynewt-core/hw/mcu/nordic/src/ext/nrfx/mdk/nrf52840_bitfields.h \
+ repos/apache-mynewt-core/hw/mcu/nordic/src/ext/nrfx/mdk/nrf51_to_nrf52840.h \
+ repos/apache-mynewt-core/hw/mcu/nordic/src/ext/nrfx/mdk/nrf52_to_nrf52840.h \
+ repos/apache-mynewt-core/hw/mcu/nordic/src/ext/nrfx/mdk/compiler_abstraction.h \
+ repos/apache-mynewt-core/hw/mcu/nordic/nrf52xxx/include/mcu/cortex_m4.h \
+ repos/apache-mynewt-core/kernel/os/include/os/arch/common.h \
+ repos/apache-mynewt-core/kernel/os/include/os/os_error.h \
+ repos/apache-mynewt-core/hw/hal/include/hal/hal_system.h \
+ repos/apache-mynewt-core/hw/hal/include/hal/hal_debug.h \
+ repos/apache-mynewt-core/encoding/tinycbor/include/tinycbor/cbor.h \
+ repos/apache-mynewt-core/libc/baselibc/include/string.h \
+ repos/apache-mynewt-core/libc/baselibc/include/klibc/extern.h \
+ repos/apache-mynewt-core/libc/baselibc/include/stdio.h \
+ repos/apache-mynewt-core/libc/baselibc/include/klibc/inline.h \
+ repos/apache-mynewt-mcumgr/cborattr/include/cborattr/cborattr.h \
+ repos/apache-mynewt-core/libc/baselibc/include/ctype.h \
+ repos/apache-mynewt-core/kernel/os/include/os/os_mbuf.h \
+ repos/apache-mynewt-core/kernel/os/include/os/queue.h \
+ repos/apache-mynewt-core/sys/sys/include/sys/queue.h \
+ repos/apache-mynewt-core/kernel/os/include/os/os_eventq.h \
+ repos/apache-mynewt-core/libc/baselibc/include/inttypes.h \
+ repos/apache-mynewt-core/kernel/os/include/os/os_time.h \
+ repos/apache-mynewt-mcumgr/mgmt/include/mgmt/mgmt.h \
+ repos/apache-mynewt-mcumgr/cmd/img_mgmt/include/img_mgmt/img_mgmt.h \
+ repos/apache-mynewt-mcumgr/cmd/img_mgmt/include/img_mgmt/img_mgmt_config.h \
+ repos/apache-mynewt-mcumgr/cmd/img_mgmt/include/img_mgmt/image.h \
+ repos/apache-mynewt-mcumgr/cmd/img_mgmt/src/img_mgmt_priv.h \
+ repos/apache-mynewt-mcumgr/cmd/img_mgmt/include/img_mgmt/img_mgmt_impl.h
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/repos/apache-mynewt-mcumgr/cmd/img_mgmt/src/img_mgmt_state.o: 

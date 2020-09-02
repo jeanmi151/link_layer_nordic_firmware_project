@@ -1,0 +1,10 @@
+arm-none-eabi-ar
+rcs
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_end/app/@apache-mynewt-core/fs/fcb/@apache-mynewt-core_fs_fcb.a
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_end/app/@apache-mynewt-core/fs/fcb/repos/apache-mynewt-core/fs/fcb/src/fcb.o
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_end/app/@apache-mynewt-core/fs/fcb/repos/apache-mynewt-core/fs/fcb/src/fcb_append.o
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_end/app/@apache-mynewt-core/fs/fcb/repos/apache-mynewt-core/fs/fcb/src/fcb_area_info.o
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_end/app/@apache-mynewt-core/fs/fcb/repos/apache-mynewt-core/fs/fcb/src/fcb_elem_info.o
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_end/app/@apache-mynewt-core/fs/fcb/repos/apache-mynewt-core/fs/fcb/src/fcb_getnext.o
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_end/app/@apache-mynewt-core/fs/fcb/repos/apache-mynewt-core/fs/fcb/src/fcb_rotate.o
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_end/app/@apache-mynewt-core/fs/fcb/repos/apache-mynewt-core/fs/fcb/src/fcb_walk.o

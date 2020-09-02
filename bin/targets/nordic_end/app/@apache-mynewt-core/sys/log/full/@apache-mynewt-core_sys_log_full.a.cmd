@@ -1,0 +1,11 @@
+arm-none-eabi-ar
+rcs
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_end/app/@apache-mynewt-core/sys/log/full/@apache-mynewt-core_sys_log_full.a
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_end/app/@apache-mynewt-core/sys/log/full/repos/apache-mynewt-core/sys/log/full/src/log.o
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_end/app/@apache-mynewt-core/sys/log/full/repos/apache-mynewt-core/sys/log/full/src/log_cbmem.o
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_end/app/@apache-mynewt-core/sys/log/full/repos/apache-mynewt-core/sys/log/full/src/log_console.o
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_end/app/@apache-mynewt-core/sys/log/full/repos/apache-mynewt-core/sys/log/full/src/log_fcb.o
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_end/app/@apache-mynewt-core/sys/log/full/repos/apache-mynewt-core/sys/log/full/src/log_fcb2.o
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_end/app/@apache-mynewt-core/sys/log/full/repos/apache-mynewt-core/sys/log/full/src/log_fcb_bmark.o
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_end/app/@apache-mynewt-core/sys/log/full/repos/apache-mynewt-core/sys/log/full/src/log_level.o
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_end/app/@apache-mynewt-core/sys/log/full/repos/apache-mynewt-core/sys/log/full/src/log_shell.o

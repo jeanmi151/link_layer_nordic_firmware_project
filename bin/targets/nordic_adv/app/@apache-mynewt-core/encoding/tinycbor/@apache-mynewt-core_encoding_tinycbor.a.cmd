@@ -1,0 +1,15 @@
+arm-none-eabi-ar
+rcs
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_adv/app/@apache-mynewt-core/encoding/tinycbor/@apache-mynewt-core_encoding_tinycbor.a
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_adv/app/@apache-mynewt-core/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cbor_buf_reader.o
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_adv/app/@apache-mynewt-core/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cbor_buf_writer.o
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_adv/app/@apache-mynewt-core/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cbor_mbuf_reader.o
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_adv/app/@apache-mynewt-core/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cbor_mbuf_writer.o
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_adv/app/@apache-mynewt-core/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.o
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_adv/app/@apache-mynewt-core/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder_close_container_checked.o
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_adv/app/@apache-mynewt-core/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborerrorstrings.o
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_adv/app/@apache-mynewt-core/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborparser.o
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_adv/app/@apache-mynewt-core/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborparser_dup_string.o
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_adv/app/@apache-mynewt-core/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborpretty.o
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_adv/app/@apache-mynewt-core/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cbortojson.o
+/home/crepel/Documents/EPFL/bluetooth_stuff/Link_layer_security/firmware_project/bin/targets/nordic_adv/app/@apache-mynewt-core/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/open_memstream.o
