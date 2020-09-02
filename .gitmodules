@@ -1,0 +1,13 @@
+[submodule "repos/apache-mynewt-core"]
+	path = repos/apache-mynewt-core
+	url = https://github.com/apache/mynewt-core.git
+[submodule "repos/apache-mynewt-mcumgr"]
+	path = repos/apache-mynewt-mcumgr
+	url = https://github.com/apache/mynewt-mcumgr.git
+[submodule "repos/apache-mynewt-nimble"]
+	path = repos/apache-mynewt-nimble
+	url = git@github.com:HexHive/nimble.git
+    branch = test
+[submodule "repos/mcuboot"]
+	path = repos/mcuboot
+	url = https://github.com/JuulLabs-OSS/mcuboot.git
