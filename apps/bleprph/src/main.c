@@ -42,6 +42,9 @@
 
 /* Application-specified header. */
 #include "bleprph.h"
+#include "shell/shell.h"
+
+#include "nimble/mitm_params.h"
 
 static int bleprph_gap_event(struct ble_gap_event *event, void *arg);
 
@@ -315,6 +318,31 @@ bleprph_on_sync(void)
     bleprph_advertise();
 }
 
+
+/** here is the shell functions
+
+*/
+// Command handler prototype declaration
+static int shell_test_cmd(int argc, char **argv);
+
+// Shell command struct
+static struct shell_cmd shell_test_cmd_struct = {
+    .sc_cmd = "test",
+    .sc_cmd_func = shell_test_cmd
+};
+
+
+// Implement your command handler
+static int
+shell_test_cmd(int argc, char **argv)
+{
+    local_features+=1;
+    console_printf("Test %i!\n", local_features);
+    return 0;
+}
+
+
+
 /**
  * main
  *
@@ -331,6 +359,11 @@ main(void)
     static char ver_str[IMGMGR_NMGR_MAX_VER];
 #endif
     int rc;
+
+    // Call this before sysinit to register the command
+    #if MYNEWT_VAL(SHELL_TASK)
+        shell_cmd_register(&shell_test_cmd_struct);
+    #endif
 
     /* Initialize OS */
     sysinit();

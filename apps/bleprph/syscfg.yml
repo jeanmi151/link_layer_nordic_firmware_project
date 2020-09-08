@@ -66,3 +66,6 @@ syscfg.vals:
     MSYS_1_BLOCK_SIZE: 110
 
     BLE_SVC_GAP_DEVICE_NAME: '"MYnewtTest"'
+
+    # Enable the shell task.
+    SHELL_TASK: 1
