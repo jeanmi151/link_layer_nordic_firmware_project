@@ -336,8 +336,24 @@ static struct shell_cmd shell_test_cmd_struct = {
 static int
 shell_test_cmd(int argc, char **argv)
 {
-    local_features+=1;
-    console_printf("Test %i!\n", local_features);
+    if(argc == 1){
+        mitm_params_local_features+=1;
+    }
+    else if( argc == 3)
+    {
+        console_printf("will set the feature var with %i", atoi(argv[2]) );
+        mitm_params_local_features = atoi(argv[2]);
+    }
+    else
+    {
+        console_printf("size of argv[0] %i\n", sizeof(argv[0]));
+        console_printf("value of argv[0] %s\n", argv[0]);
+        console_printf("size of argv[1] %i\n", sizeof(argv[1]));
+        console_printf("value of argv[1] %s\n", argv[1]);
+
+         console_printf("value atoi of argv[1] %i\n", atoi(argv[1]));
+    }
+    console_printf("Test %i! with argc=%i and argv=%s\n", mitm_params_local_features, argc, *argv);
     return 0;
 }
 
