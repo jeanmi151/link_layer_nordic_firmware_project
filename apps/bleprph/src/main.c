@@ -323,35 +323,44 @@ bleprph_on_sync(void)
 
 */
 // Command handler prototype declaration
-static int shell_test_cmd(int argc, char **argv);
+static int shell_set_cmd(int argc, char **argv);
 
 // Shell command struct
-static struct shell_cmd shell_test_cmd_struct = {
-    .sc_cmd = "test",
-    .sc_cmd_func = shell_test_cmd
+static struct shell_cmd shell_set_cmd_struct = {
+    .sc_cmd = "set",
+    .sc_cmd_func = shell_set_cmd
 };
 
 
 // Implement your command handler
 static int
-shell_test_cmd(int argc, char **argv)
+shell_set_cmd(int argc, char **argv)
 {
-    if(argc == 1){
-        mitm_params_local_features+=1;
-    }
-    else if( argc == 3)
-    {
-        console_printf("will set the feature var with %i", atoi(argv[2]) );
-        mitm_params_local_features = atoi(argv[2]);
+    if(argc == 3){
+        /* If the two strings are the same st   vimrcmp return 0 */
+        if(!(strcmp(argv[1], "feat")))
+        {
+            console_printf("\nWill set the features to %i\n", atoi(argv[2]) );
+            mitm_params_local_features = atoi(argv[2]);
+        }
+        else
+        {
+            console_printf("\nWrong var-name\n");
+        }
+
+//        console_printf("\nsize of argv[0] %i\n", sizeof(argv[0]));
+//        console_printf("value of argv[0] %s\n", argv[0]);
+//        console_printf("size of argv[1] %i\n", sizeof(argv[1]));
+//        console_printf("value of argv[1] %s\n", argv[1]);
+//
+//         console_printf("value atoi of argv[1] %i\n", atoi(argv[1]));
+
     }
     else
     {
-        console_printf("size of argv[0] %i\n", sizeof(argv[0]));
-        console_printf("value of argv[0] %s\n", argv[0]);
-        console_printf("size of argv[1] %i\n", sizeof(argv[1]));
-        console_printf("value of argv[1] %s\n", argv[1]);
-
-         console_printf("value atoi of argv[1] %i\n", atoi(argv[1]));
+        console_printf("\nWrong command usage : %s [var-name] value\n", argv[0]);
+        console_printf("\nList of var-name : \n");
+        console_printf("\t - feat (int) : for setting features value p3013 from the 5.2 spec \n");
     }
     console_printf("Test %i! with argc=%i and argv=%s\n", mitm_params_local_features, argc, *argv);
     return 0;
@@ -378,7 +387,7 @@ main(void)
 
     // Call this before sysinit to register the command
     #if MYNEWT_VAL(SHELL_TASK)
-        shell_cmd_register(&shell_test_cmd_struct);
+        shell_cmd_register(&shell_set_cmd_struct);
     #endif
 
     /* Initialize OS */
