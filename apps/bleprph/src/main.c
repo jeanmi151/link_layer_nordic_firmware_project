@@ -182,8 +182,7 @@ set_ble_addr(void)
  *                                  of the return code is specific to the
  *                                  particular GAP event being signalled.
  */
-static int
-bleprph_gap_event(struct ble_gap_event *event, void *arg)
+static int bleprph_gap_event(struct ble_gap_event *event, void *arg)
 {
     struct ble_gap_conn_desc desc;
     int rc;
@@ -336,9 +335,13 @@ static struct shell_cmd shell_set_cmd_struct = {
 static int
 shell_set_cmd(int argc, char **argv)
 {
+//    int nb_of_modified_packets = sizeof(list_mitmed_packet);
+    // command exemple : set feat 0
     if(argc == 3){
+
         /* If the two strings are the same st   vimrcmp return 0 */
-        if(!(strcmp(argv[1], "feat")))
+        console_printf("atoi(argv[2]) : %x", atoi(argv[2]));
+        if(!(strcmp(argv[1], "feat")) )
         {
             console_printf("\nWill set the features to %i\n", atoi(argv[2]) );
             mitm_params_local_features = atoi(argv[2]);
@@ -355,6 +358,34 @@ shell_set_cmd(int argc, char **argv)
 //
 //         console_printf("value atoi of argv[1] %i\n", atoi(argv[1]));
 
+    }
+    // wanted command : set 0c 0c 0931010c22   (for version ind packet)
+    // : set [hexa of packet ll pdu] [hexa of new packet ll pdu] [hexa of the value]
+    else if(argc == 4)
+    {
+        bool found_in_list = false;
+        for (int hgg=0; hgg < nb_of_mitmed_packets ; hgg++)
+        {
+            // already existing in the list, need to update it
+            if(atoi(argv[1]) == list_mitmed_packet[hgg].response_opcode)
+            {
+                found_in_list = true;
+                // means that the packets need to be modified
+
+                // operation specific for
+                console_printf("\n needlolallalala\n");
+            }
+        }
+        // need to append the list
+        if( found_in_list == false)
+        {
+            list_mitmed_packet[nb_of_mitmed_packets].response_opcode = 8;
+            list_mitmed_packet[nb_of_mitmed_packets].response_new_opcode = 8;
+            list_mitmed_packet[nb_of_mitmed_packets].datatorsp = 0 ;
+
+            nb_of_mitmed_packets++;
+
+        }
     }
     else
     {
