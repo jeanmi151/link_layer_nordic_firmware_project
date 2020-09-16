@@ -42,9 +42,11 @@
 
 /* Application-specified header. */
 #include "bleprph.h"
+
 #include "shell/shell.h"
 
-#include "nimble/mitm_params.h"
+#include "shell_command.h"
+
 
 static int bleprph_gap_event(struct ble_gap_event *event, void *arg);
 
@@ -317,88 +319,6 @@ bleprph_on_sync(void)
     bleprph_advertise();
 }
 
-
-/** here is the shell functions
-
-*/
-// Command handler prototype declaration
-static int shell_set_cmd(int argc, char **argv);
-
-// Shell command struct
-static struct shell_cmd shell_set_cmd_struct = {
-    .sc_cmd = "set",
-    .sc_cmd_func = shell_set_cmd
-};
-
-
-// Implement your command handler
-static int
-shell_set_cmd(int argc, char **argv)
-{
-//    int nb_of_modified_packets = sizeof(list_mitmed_packet);
-    // command exemple : set feat 0
-    if(argc == 3){
-
-        /* If the two strings are the same st   vimrcmp return 0 */
-        console_printf("atoi(argv[2]) : %x", atoi(argv[2]));
-        if(!(strcmp(argv[1], "feat")) )
-        {
-            console_printf("\nWill set the features to %i\n", atoi(argv[2]) );
-            mitm_params_local_features = atoi(argv[2]);
-        }
-        else
-        {
-            console_printf("\nWrong var-name\n");
-        }
-
-//        console_printf("\nsize of argv[0] %i\n", sizeof(argv[0]));
-//        console_printf("value of argv[0] %s\n", argv[0]);
-//        console_printf("size of argv[1] %i\n", sizeof(argv[1]));
-//        console_printf("value of argv[1] %s\n", argv[1]);
-//
-//         console_printf("value atoi of argv[1] %i\n", atoi(argv[1]));
-
-    }
-    // wanted command : set 0c 0c 0931010c22   (for version ind packet)
-    // : set [hexa of packet ll pdu] [hexa of new packet ll pdu] [hexa of the value]
-    else if(argc == 4)
-    {
-        bool found_in_list = false;
-        for (int hgg=0; hgg < nb_of_mitmed_packets ; hgg++)
-        {
-            // already existing in the list, need to update it
-            if(atoi(argv[1]) == list_mitmed_packet[hgg].response_opcode)
-            {
-                found_in_list = true;
-                // means that the packets need to be modified
-
-                // operation specific for
-                console_printf("\n needlolallalala\n");
-            }
-        }
-        // need to append the list
-        if( found_in_list == false)
-        {
-            list_mitmed_packet[nb_of_mitmed_packets].response_opcode = 8;
-            list_mitmed_packet[nb_of_mitmed_packets].response_new_opcode = 8;
-            list_mitmed_packet[nb_of_mitmed_packets].datatorsp = 0 ;
-
-            nb_of_mitmed_packets++;
-
-        }
-    }
-    else
-    {
-        console_printf("\nWrong command usage : %s [var-name] value\n", argv[0]);
-        console_printf("\nList of var-name : \n");
-        console_printf("\t - feat (int) : for setting features value p3013 from the 5.2 spec \n");
-    }
-    console_printf("Test %i! with argc=%i and argv=%s\n", mitm_params_local_features, argc, *argv);
-    return 0;
-}
-
-
-
 /**
  * main
  *
@@ -419,6 +339,8 @@ main(void)
     // Call this before sysinit to register the command
     #if MYNEWT_VAL(SHELL_TASK)
         shell_cmd_register(&shell_set_cmd_struct);
+        shell_cmd_register(&shell_del_cmd_struct);
+        shell_cmd_register(&shell_list_cmd_struct);
     #endif
 
     /* Initialize OS */
