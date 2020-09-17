@@ -341,6 +341,7 @@ main(void)
         shell_cmd_register(&shell_set_cmd_struct);
         shell_cmd_register(&shell_del_cmd_struct);
         shell_cmd_register(&shell_list_cmd_struct);
+        init_var_list();
     #endif
 
     /* Initialize OS */
