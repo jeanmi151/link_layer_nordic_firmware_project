@@ -316,15 +316,15 @@ static void init_var_list(){
 //    list_mitmed_packet[2].sizersp = 5;
 
     // enc rsp
-    list_mitmed_packet[0].response_opcode = 0x04;
-    list_mitmed_packet[0].response_new_opcode = 0x04;
-
-    for (int bipbip = 0; bipbip < 8+4; bipbip++)
-    {
-        list_mitmed_packet[0].datatorsp[bipbip] = bipbip;
-    }
-
-    list_mitmed_packet[0].sizersp = 8+4;
-
-    nb_of_mitmed_packets = 1;
+//    list_mitmed_packet[0].response_opcode = 0x04;
+//    list_mitmed_packet[0].response_new_opcode = 0x04;
+//
+//    for (int bipbip = 0; bipbip < 8+4; bipbip++)
+//    {
+//        list_mitmed_packet[0].datatorsp[bipbip] = bipbip;
+//    }
+//
+//    list_mitmed_packet[0].sizersp = 8+4;
+//
+//    nb_of_mitmed_packets = 1;
 }
