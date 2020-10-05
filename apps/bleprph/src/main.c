@@ -68,6 +68,7 @@ bleprph_print_conn_desc(struct ble_gap_conn_desc *desc)
     MODLOG_DFLT(INFO, " peer_id_addr_type=%d peer_id_addr=",
                 desc->peer_id_addr.type);
     print_addr(desc->peer_id_addr.val);
+
     MODLOG_DFLT(INFO, " conn_itvl=%d conn_latency=%d supervision_timeout=%d "
                 "encrypted=%d authenticated=%d bonded=%d\n",
                 desc->conn_itvl, desc->conn_latency,
@@ -156,18 +157,26 @@ static void
 set_ble_addr(void)
 {
     int rc;
-    ble_addr_t addr;
-    uint8_t hehe[6] = {0x66, 0x55, 0x44, 0x33, 0x22, 0x11};
+//    ble_addr_t addr;
 
-    /* generate new non-resolvable private address */
-    rc = ble_hs_id_gen_rnd(1, &addr);
-    assert(rc == 0);
 
-    /* set generated address */
+    // be carefull with this static way to set the mac address
+    // it can make crash the fw and/or make impossible persistent
+    // key storage depending of te class
+    // https://www.novelbits.io/bluetooth-address-privacy-ble/
+    // Non-Resolvable Random Private Address can not bond (even if the sm flag is 1)
+    uint8_t hehe[6] = {0x61, 0x85, 0x07, 0xC6, 0xD9,0xC9 };
+
+    // generate new resolvable private address
+//    rc = ble_hs_id_gen_rnd(0, &addr);
+//    assert(rc == 0);
+
+    // set generated address
     rc = ble_hs_id_set_rnd(hehe);
     //rc = ble_hs_id_set_rnd(addr.val);
     assert(rc == 0);
 }
+
 
 /**
  * The nimble host executes this callback when a GAP event occurs.  The
