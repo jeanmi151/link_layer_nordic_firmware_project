@@ -28,7 +28,7 @@ static int shell_list_cmd(int argc, char **argv);
 
 static const struct shell_cmd_help set_help = {
    .summary = "set a packet to modify during the mitm",
-   .usage = "\tset [hexa of packet ll pdu] [hexa of new packet ll pdu] [hexa of the value]",
+   .usage = "\tset [direction] [hexa of packet ll pdu] [hexa of new packet ll pdu] [hexa of the value]",
    .params = NULL,
 };
 static struct shell_cmd shell_set_cmd_struct = {
@@ -109,9 +109,9 @@ shell_set_cmd(int argc, char **argv)
 //         console_printf("value atoi of argv[1] %i\n", atoi(argv[1]));
 
     }
-    // wanted command : set 0c 0c 0931010c22   (for version ind packet)
-    // : set [hexa of packet ll pdu] [hexa of new packet ll pdu] [hexa of the value]
-    else if(argc == 4)
+    // wanted command : set 1 0c 0c 0931010c22   (for version ind packet)
+    // : set [direction] [hexa of packet ll pdu] [hexa of new packet ll pdu] [hexa of the value]
+    else if(argc == 5)
     {
         bool print_debug_info_list = 0;
         bool found_in_list = false;
@@ -120,7 +120,7 @@ shell_set_cmd(int argc, char **argv)
         {
             if(print_debug_info_list) { console_printf("trying, %i ?= %i", (int)strtol(argv[1], NULL, 16), list_mitmed_packet[hgg].response_opcode); }
             // already existing in the list, need to update it
-            if( (int)strtol(argv[1], NULL, 16) == list_mitmed_packet[hgg].response_opcode)
+            if( (int)strtol(argv[2], NULL, 16) == list_mitmed_packet[hgg].response_opcode && (int)strtol(argv[1], NULL, 16) == list_mitmed_packet[hgg].direction_flag)
             {
                 found_in_list = true;
                 // means that the packets need to be modified
@@ -132,18 +132,19 @@ shell_set_cmd(int argc, char **argv)
         // need to append the list
 
         if(print_debug_info_list) { console_printf("This is the long string value : %s convertion = %lx\n", argv[3], (long)strtol(argv[3], NULL, 16)); }
-        list_mitmed_packet[current_index].response_opcode = (int)strtol(argv[1], NULL, 16);
-        list_mitmed_packet[current_index].response_new_opcode = (int)strtol(argv[2], NULL, 16);
+        list_mitmed_packet[current_index].direction_flag = (int)strtol(argv[1], NULL, 16);
+        list_mitmed_packet[current_index].response_opcode = (int)strtol(argv[2], NULL, 16);
+        list_mitmed_packet[current_index].response_new_opcode = (int)strtol(argv[3], NULL, 16);
 //        list_mitmed_packet[current_index].datatorsp = (uint8_t)strtol(argv[3], NULL, 16);
         uint8_t test = 0;
         char testchar[2];
         bool odd_arg = false;
         // if string is not odd need to pretend (append at the begining) one 0
-        if((strlen(argv[3]) % 2) != 0)
+        if((strlen(argv[4]) % 2) != 0)
         {
             odd_arg= true;
         }
-        for( int uhgg = 0; uhgg< strlen(argv[3]); uhgg++)
+        for( int uhgg = 0; uhgg< strlen(argv[4]); uhgg++)
         {
             if(print_debug_info_list) { console_printf("bool ood activate :%i\n", odd_arg); }
             // manage if string as ood nb, handling odd uhgg
@@ -151,11 +152,11 @@ shell_set_cmd(int argc, char **argv)
                 if(print_debug_info_list) { console_printf("index lool%i, div %i\n", uhgg, ((uhgg+1)/2) ); }
                 if (uhgg == 0){
                     testchar[0] = '0';
-                    testchar[1] = argv[3][uhgg];
+                    testchar[1] = argv[4][uhgg];
                 }
                 else{
-                    testchar[0] = argv[3][uhgg];
-                    testchar[1] = argv[3][uhgg+1];
+                    testchar[0] = argv[4][uhgg];
+                    testchar[1] = argv[4][uhgg+1];
                 }
 
                 list_mitmed_packet[current_index].datatorsp[((uhgg+1)/2)] = (uint8_t)strtol(testchar, NULL, 16);
@@ -168,8 +169,8 @@ shell_set_cmd(int argc, char **argv)
             else
             {
                 if(print_debug_info_list) { console_printf("index lool%i, div %i\n", uhgg, (uhgg/2) +1); }
-                testchar[0] = argv[3][uhgg];
-                testchar[1] = argv[3][uhgg+1];
+                testchar[0] = argv[4][uhgg];
+                testchar[1] = argv[4][uhgg+1];
                 list_mitmed_packet[current_index].datatorsp[uhgg/2] = (uint8_t)strtol(testchar, NULL, 16);
                 list_mitmed_packet[current_index].sizersp=(uhgg/2) +1;
                 uhgg++;
@@ -205,7 +206,8 @@ shell_list_cmd(int argc, char **argv)
     // printing content of list_mitmed_packet
     for (int hgg=0; hgg < nb_of_mitmed_packets ; hgg++)
     {
-        console_printf("printing mitmed packet nb %i : %2X , %2X, [",hgg,
+        console_printf("printing mitmed packet nb %i : %i,  %2X , %2X, [",hgg,
+        list_mitmed_packet[hgg].direction_flag,
         list_mitmed_packet[hgg].response_opcode ,
         list_mitmed_packet[hgg].response_new_opcode); //
         for( int uhgg = 0; uhgg< list_mitmed_packet[hgg].sizersp; uhgg++)
@@ -238,7 +240,7 @@ shell_del_cmd(int argc, char **argv)
         for (int hgg=0; hgg < nb_of_mitmed_packets ; hgg++)
         {
             // already existing in the list, need to update it
-            if( (int)strtol(argv[1], NULL, 16) == list_mitmed_packet[hgg].response_opcode)
+            if( (int)strtol(argv[1], NULL, 16) == list_mitmed_packet[hgg].response_opcode )
             {
                 found_in_list = true;
                 // means that the packets need to be modified
@@ -253,6 +255,7 @@ shell_del_cmd(int argc, char **argv)
             }
             // if found and not the last one
             if(found_in_list && hgg != nb_of_mitmed_packets-1){
+                list_mitmed_packet[hgg].direction_flag = list_mitmed_packet[hgg+1].direction_flag,
                 list_mitmed_packet[hgg].response_opcode = list_mitmed_packet[hgg+1].response_opcode;
                 list_mitmed_packet[hgg].response_new_opcode = list_mitmed_packet[hgg+1].response_new_opcode;
                 for( int uhgg = 0; uhgg< list_mitmed_packet[hgg+1].sizersp; uhgg++)
@@ -285,15 +288,17 @@ shell_del_cmd(int argc, char **argv)
 
 static void init_var_list(){
     // feat slave req
-//    list_mitmed_packet[0].response_opcode = 0xe;
-//    list_mitmed_packet[0].response_new_opcode = 0xc;
-//    list_mitmed_packet[0].datatorsp[0] = 0x00;
-//    list_mitmed_packet[0].datatorsp[1] = 0x00;
-//    list_mitmed_packet[0].datatorsp[2] = 0x01;
-//    list_mitmed_packet[0].datatorsp[3] = 0x02;
-//    list_mitmed_packet[0].datatorsp[4] = 0x02;
-//
-//    list_mitmed_packet[0].sizersp = 5;
+    list_mitmed_packet[0].direction_flag = 1;
+    list_mitmed_packet[0].response_opcode = 0xe;
+    list_mitmed_packet[0].response_new_opcode = 0xc;
+
+    list_mitmed_packet[0].datatorsp[0] = 0x00;
+    list_mitmed_packet[0].datatorsp[1] = 0x00;
+    list_mitmed_packet[0].datatorsp[2] = 0x01;
+    list_mitmed_packet[0].datatorsp[3] = 0x02;
+    list_mitmed_packet[0].datatorsp[4] = 0x02;
+
+    list_mitmed_packet[0].sizersp = 5;
 //
 //    // feat rsp
 //    list_mitmed_packet[1].response_opcode = 0x9;
@@ -326,5 +331,5 @@ static void init_var_list(){
 //
 //    list_mitmed_packet[0].sizersp = 8+4;
 //
-//    nb_of_mitmed_packets = 1;
+    nb_of_mitmed_packets = 1;
 }
