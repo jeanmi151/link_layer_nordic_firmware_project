@@ -166,7 +166,7 @@ set_ble_addr(void)
     // https://www.novelbits.io/bluetooth-address-privacy-ble/
     // Non-Resolvable Random Private Address can not bond (even if the sm flag is 1)
     uint8_t hehe[6] = {0x61, 0x85, 0x07, 0xC6, 0xD9,0xC9 };
-
+//    uint8_t hehe[6] = {0x66, 0x55, 0x44, 0x33, 0x22, 0x11};
     // generate new resolvable private address
 //    rc = ble_hs_id_gen_rnd(0, &addr);
 //    assert(rc == 0);

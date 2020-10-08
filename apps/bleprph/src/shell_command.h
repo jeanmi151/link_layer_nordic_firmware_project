@@ -39,7 +39,7 @@ static struct shell_cmd shell_set_cmd_struct = {
 
 static const struct shell_cmd_help del_help = {
    .summary = "erase a packet from the modification list",
-   .usage = "\tdel [opcode to delete] ",
+   .usage = "\tdel [direction] [opcode to delete]  ",
    .params = NULL,
 };
 static struct shell_cmd shell_del_cmd_struct = {
@@ -180,6 +180,7 @@ shell_set_cmd(int argc, char **argv)
             console_printf("converted to be stored: hex:%X, int:%i\n", test, test); }
         }
 
+        list_mitmed_packet[current_index].used = 0;
         if( found_in_list == false)
         {
             nb_of_mitmed_packets++;
@@ -215,7 +216,7 @@ shell_list_cmd(int argc, char **argv)
             if(uhgg == 0){ console_printf("%02X",  list_mitmed_packet[hgg].datatorsp[uhgg]); }
             else{          console_printf(", %02X",list_mitmed_packet[hgg].datatorsp[uhgg]); }
         }
-        console_printf("], %i \n", list_mitmed_packet[hgg].sizersp);
+        console_printf("], %i, %i \n", list_mitmed_packet[hgg].sizersp, list_mitmed_packet[hgg].used);
     }
     if (nb_of_mitmed_packets == 0 ) {
         console_printf("Not packet defined\n");
@@ -231,7 +232,7 @@ shell_list_cmd(int argc, char **argv)
 static int
 shell_del_cmd(int argc, char **argv)
 {
-    if(argc == 2)
+    if(argc == 3)
     {
         bool found_in_list = false;
         int index_to_delete = 0;
@@ -240,7 +241,7 @@ shell_del_cmd(int argc, char **argv)
         for (int hgg=0; hgg < nb_of_mitmed_packets ; hgg++)
         {
             // already existing in the list, need to update it
-            if( (int)strtol(argv[1], NULL, 16) == list_mitmed_packet[hgg].response_opcode )
+            if( (int)strtol(argv[2], NULL, 16) == list_mitmed_packet[hgg].response_opcode && (int)strtol(argv[1], NULL, 16) == list_mitmed_packet[hgg].direction_flag )
             {
                 found_in_list = true;
                 // means that the packets need to be modified
@@ -280,7 +281,7 @@ shell_del_cmd(int argc, char **argv)
     }
     else{
         console_printf("This command delete from the packet list to modify the right entry \n");
-        console_printf("Wrong command usage : %s [opcode to delete] \n", argv[0]);
+        console_printf("Wrong command usage : %s [direction] [opcode to delete] \n", argv[0]);
 
     }
     return 0;
@@ -288,8 +289,8 @@ shell_del_cmd(int argc, char **argv)
 
 static void init_var_list(){
     // feat slave req
-    list_mitmed_packet[0].direction_flag = 1;
-    list_mitmed_packet[0].response_opcode = 0xe;
+    list_mitmed_packet[0].direction_flag = 0;
+    list_mitmed_packet[0].response_opcode = 0xc;
     list_mitmed_packet[0].response_new_opcode = 0xc;
 
     list_mitmed_packet[0].datatorsp[0] = 0x00;
@@ -299,6 +300,20 @@ static void init_var_list(){
     list_mitmed_packet[0].datatorsp[4] = 0x02;
 
     list_mitmed_packet[0].sizersp = 5;
+    list_mitmed_packet[0].used = 0;
+
+    list_mitmed_packet[1].direction_flag = 1;
+    list_mitmed_packet[1].response_opcode = 0xc;
+    list_mitmed_packet[1].response_new_opcode = 0xc;
+
+    list_mitmed_packet[1].datatorsp[0] = 0x00;
+    list_mitmed_packet[1].datatorsp[1] = 0x00;
+    list_mitmed_packet[1].datatorsp[2] = 0x01;
+    list_mitmed_packet[1].datatorsp[3] = 0x02;
+    list_mitmed_packet[1].datatorsp[4] = 0x02;
+
+    list_mitmed_packet[1].sizersp = 5;
+    list_mitmed_packet[1].used = 0;
 //
 //    // feat rsp
 //    list_mitmed_packet[1].response_opcode = 0x9;
@@ -331,5 +346,5 @@ static void init_var_list(){
 //
 //    list_mitmed_packet[0].sizersp = 8+4;
 //
-    nb_of_mitmed_packets = 1;
+    nb_of_mitmed_packets = 2;
 }
