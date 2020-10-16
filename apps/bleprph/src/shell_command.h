@@ -207,16 +207,16 @@ shell_list_cmd(int argc, char **argv)
     // printing content of list_mitmed_packet
     for (int hgg=0; hgg < nb_of_mitmed_packets ; hgg++)
     {
-        console_printf("printing mitmed packet nb %i : %i,  %2X , %2X, [",hgg,
+        console_printf("printing mitmed packet nb %i :%i,%2X,%2X,",hgg,
         list_mitmed_packet[hgg].direction_flag,
         list_mitmed_packet[hgg].response_opcode ,
         list_mitmed_packet[hgg].response_new_opcode); //
         for( int uhgg = 0; uhgg< list_mitmed_packet[hgg].sizersp; uhgg++)
         {
             if(uhgg == 0){ console_printf("%02X",  list_mitmed_packet[hgg].datatorsp[uhgg]); }
-            else{          console_printf(", %02X",list_mitmed_packet[hgg].datatorsp[uhgg]); }
+            else{          console_printf("%02X",list_mitmed_packet[hgg].datatorsp[uhgg]); }
         }
-        console_printf("], %i, %i \n", list_mitmed_packet[hgg].sizersp, list_mitmed_packet[hgg].used);
+        console_printf(",%i,%i\n", list_mitmed_packet[hgg].sizersp, list_mitmed_packet[hgg].used);
     }
     if (nb_of_mitmed_packets == 0 ) {
         console_printf("Not packet defined\n");
