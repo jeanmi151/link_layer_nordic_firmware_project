@@ -289,32 +289,35 @@ shell_del_cmd(int argc, char **argv)
 
 static void init_var_list(){
     // feat slave req
-    list_mitmed_packet[0].direction_flag = 0;
-    list_mitmed_packet[0].response_opcode = 0xc;
-    list_mitmed_packet[0].response_new_opcode = 0xc;
 
-    list_mitmed_packet[0].datatorsp[0] = 0x00;
-    list_mitmed_packet[0].datatorsp[1] = 0x00;
-    list_mitmed_packet[0].datatorsp[2] = 0x01;
-    list_mitmed_packet[0].datatorsp[3] = 0x02;
-    list_mitmed_packet[0].datatorsp[4] = 0x02;
-
-    list_mitmed_packet[0].sizersp = 5;
-    list_mitmed_packet[0].used = 0;
-
-    list_mitmed_packet[1].direction_flag = 1;
-    list_mitmed_packet[1].response_opcode = 0xc;
-    list_mitmed_packet[1].response_new_opcode = 0xc;
-
-    list_mitmed_packet[1].datatorsp[0] = 0x00;
-    list_mitmed_packet[1].datatorsp[1] = 0x00;
-    list_mitmed_packet[1].datatorsp[2] = 0x01;
-    list_mitmed_packet[1].datatorsp[3] = 0x02;
-    list_mitmed_packet[1].datatorsp[4] = 0x02;
-
-    list_mitmed_packet[1].sizersp = 5;
-    list_mitmed_packet[1].used = 0;
+//    list_mitmed_packet[0].direction_flag = 0;
+//    list_mitmed_packet[0].response_opcode = 0xc;
+//    list_mitmed_packet[0].response_new_opcode = 0xc;
 //
+//    list_mitmed_packet[0].datatorsp[0] = 0x00;
+//    list_mitmed_packet[0].datatorsp[1] = 0x00;
+//    list_mitmed_packet[0].datatorsp[2] = 0x01;
+//    list_mitmed_packet[0].datatorsp[3] = 0x02;
+//    list_mitmed_packet[0].datatorsp[4] = 0x02;
+//
+//    list_mitmed_packet[0].sizersp = 5;
+//    list_mitmed_packet[0].used = 0;
+//
+//    list_mitmed_packet[1].direction_flag = 1;
+//    list_mitmed_packet[1].response_opcode = 0xc;
+//    list_mitmed_packet[1].response_new_opcode = 0xc;
+//
+//    list_mitmed_packet[1].datatorsp[0] = 0x00;
+//    list_mitmed_packet[1].datatorsp[1] = 0x00;
+//    list_mitmed_packet[1].datatorsp[2] = 0x01;
+//    list_mitmed_packet[1].datatorsp[3] = 0x02;
+//    list_mitmed_packet[1].datatorsp[4] = 0x02;
+//
+//    list_mitmed_packet[1].sizersp = 5;
+//    list_mitmed_packet[1].used = 0;
+//
+
+
 //    // feat rsp
 //    list_mitmed_packet[1].response_opcode = 0x9;
 //    list_mitmed_packet[1].response_new_opcode = 0xc;
@@ -346,5 +349,5 @@ static void init_var_list(){
 //
 //    list_mitmed_packet[0].sizersp = 8+4;
 //
-    nb_of_mitmed_packets = 2;
+    nb_of_mitmed_packets = 0;
 }
