@@ -34,6 +34,10 @@
 /* Application-specified header. */
 #include "blecent.h"
 
+
+/* include mitmed packets */
+#include "nimble/mitm_params.h"
+
 static int blecent_gap_event(struct ble_gap_event *event, void *arg);
 
 /**
