@@ -47,6 +47,8 @@ void print_uuid(const ble_uuid_t *uuid);
 void print_conn_desc(const struct ble_gap_conn_desc *desc);
 void print_adv_fields(const struct ble_hs_adv_fields *fields);
 
+bool cmp_two_addr(const uint8_t *addr1, const uint8_t *addr2, bool tgt_is_set);
+
 /** Peer. */
 struct peer_dsc {
     SLIST_ENTRY(peer_dsc) next;

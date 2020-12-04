@@ -34,5 +34,9 @@ pkg.deps:
     - "@apache-mynewt-nimble/nimble/host/services/gatt"
     - "@apache-mynewt-nimble/nimble/host/store/ram"
     - "@apache-mynewt-nimble/nimble/transport"
+    - "@apache-mynewt-core/sys/shell"
+
+pkg.req_apis:
+    - console
 
 

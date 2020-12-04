@@ -36,7 +36,9 @@
 
 
 /* include mitmed packets */
-#include "nimble/mitm_params.h"
+//#include "nimble/mitm_params.h"
+#include "console/console.h"
+#include "shell_command.h"
 
 static int blecent_gap_event(struct ble_gap_event *event, void *arg);
 
@@ -267,6 +269,22 @@ blecent_should_connect(const struct ble_gap_disc_desc *disc)
     int rc;
     int i;
 
+    if(target_is_set == false)
+    {
+        MODLOG_DFLT(DEBUG, "\n---------------The target is not set, ignoring the discovered addr-----------\n");
+        return 0;
+    }
+    // cmp_two_addr : compare to mac address, if it is equal return 0 otherwise 1
+    if(cmp_two_addr(disc->addr.val , target_of_masterer ,target_is_set ) ){
+        MODLOG_DFLT(DEBUG, "\n----============Not good add       , ignoring the discovered addr-========--\n");
+        return 0;
+    }
+    else
+    {
+        MODLOG_DFLT(DEBUG, "\n----============gOOOOOOOOOOOOOOODDDD aaaaaaaaaaddr-========--\n");
+
+    }
+
     /* The device has to be advertising connectability. */
     if (disc->event_type != BLE_HCI_ADV_RPT_EVTYPE_ADV_IND &&
         disc->event_type != BLE_HCI_ADV_RPT_EVTYPE_DIR_IND) {
@@ -301,6 +319,9 @@ blecent_connect_if_interesting(const struct ble_gap_disc_desc *disc)
 {
     uint8_t own_addr_type;
     int rc;
+
+    // printing the detected address : addr_str(disc->addr)
+    MODLOG_DFLT(DEBUG, "\ndiscovered addr : %s\n", addr_str(disc->addr.val) );
 
     /* Don't do anything if we don't care about this advertiser. */
     if (!blecent_should_connect(disc)) {
@@ -354,18 +375,24 @@ blecent_gap_event(struct ble_gap_event *event, void *arg)
     struct ble_gap_conn_desc desc;
     struct ble_hs_adv_fields fields;
     int rc;
-
+    MODLOG_DFLT(INFO, "\nbububububububuububu established %i\n", event->type);
     switch (event->type) {
+    // receiving a new advertissment packet
     case BLE_GAP_EVENT_DISC:
         rc = ble_hs_adv_parse_fields(&fields, event->disc.data,
                                      event->disc.length_data);
+
+        MODLOG_DFLT(INFO, "\nbbibiibibibibibiibibibi %i\n", event->type);
         if (rc != 0) {
             return 0;
         }
-
+        MODLOG_DFLT(INFO, "\nbobobobobobobobobo %i\n", event->type);
         /* An advertisment report was received during GAP discovery. */
         print_adv_fields(&fields);
 
+        MODLOG_DFLT(INFO, "\nbqbqbbqbabababba %i\n", event->type);
+        // printing the detected address : addr_str(disc->addr)
+        MODLOG_DFLT(DEBUG, "discovered addr : %s", addr_str(&event->disc.addr) );
         /* Try to connect to the advertiser if it looks interesting. */
         blecent_connect_if_interesting(&event->disc);
         return 0;
@@ -504,6 +531,14 @@ main(void)
 {
     int rc;
 
+    // Call this before sysinit to register the command
+    #if MYNEWT_VAL(SHELL_TASK)
+        shell_cmd_register(&shell_set_cmd_struct);
+        shell_cmd_register(&shell_del_cmd_struct);
+        shell_cmd_register(&shell_list_cmd_struct);
+        init_var_list();
+    #endif
+
     /* Initialize OS */
     sysinit();
 
@@ -519,6 +554,14 @@ main(void)
     /* Set the default device name. */
     rc = ble_svc_gap_device_name_set("nimble-blecent");
     assert(rc == 0);
+
+    //print_console("echo coucou starting");
+    MODLOG_DFLT(INFO, "\nHEY COUCOU from modlog\n ");
+    //LOG_DFLT(INFO, "HEY COUCOU from log ");
+
+    // init my stuff
+    init_var_list();
+
 
     /* os start should never return. If it does, this should be an error */
     while (1) {
