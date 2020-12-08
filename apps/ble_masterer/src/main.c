@@ -235,7 +235,10 @@ blecent_scan(void)
     /* Tell the controller to filter duplicates; we don't want to process
      * repeated advertisements from the same device.
      */
-    disc_params.filter_duplicates = 1;
+    //disc_params.filter_duplicates = 1;
+
+    // we need to have duplicates :
+    disc_params.filter_duplicates = 0;
 
     /**
      * Perform a passive scan.  I.e., don't send follow-up scan requests to
@@ -265,9 +268,9 @@ blecent_scan(void)
 static int
 blecent_should_connect(const struct ble_gap_disc_desc *disc)
 {
-    struct ble_hs_adv_fields fields;
-    int rc;
-    int i;
+//    struct ble_hs_adv_fields fields;
+//    int rc;
+//    int i;
 
     if(target_is_set == false)
     {
@@ -282,29 +285,29 @@ blecent_should_connect(const struct ble_gap_disc_desc *disc)
     else
     {
         MODLOG_DFLT(DEBUG, "\n----============gOOOOOOOOOOOOOOODDDD aaaaaaaaaaddr-========--\n");
-
+        return 1;
     }
 
-    /* The device has to be advertising connectability. */
-    if (disc->event_type != BLE_HCI_ADV_RPT_EVTYPE_ADV_IND &&
-        disc->event_type != BLE_HCI_ADV_RPT_EVTYPE_DIR_IND) {
-
-        return 0;
-    }
-
-    rc = ble_hs_adv_parse_fields(&fields, disc->data, disc->length_data);
-    if (rc != 0) {
-        return rc;
-    }
-
-    /* The device has to advertise support for the Alert Notification
-     * service (0x1811).
-     */
-    for (i = 0; i < fields.num_uuids16; i++) {
-        if (ble_uuid_u16(&fields.uuids16[i].u) == BLECENT_SVC_ALERT_UUID) {
-            return 1;
-        }
-    }
+//    /* The device has to be advertising connectability. */
+//    if (disc->event_type != BLE_HCI_ADV_RPT_EVTYPE_ADV_IND &&
+//        disc->event_type != BLE_HCI_ADV_RPT_EVTYPE_DIR_IND) {
+//
+//        return 0;
+//    }
+//
+//    rc = ble_hs_adv_parse_fields(&fields, disc->data, disc->length_data);
+//    if (rc != 0) {
+//        return rc;
+//    }
+//
+//    /* The device has to advertise support for the Alert Notification
+//     * service (0x1811).
+//     */
+//    for (i = 0; i < fields.num_uuids16; i++) {
+//        if (ble_uuid_u16(&fields.uuids16[i].u) == BLECENT_SVC_ALERT_UUID) {
+//            return 1;
+//        }
+//    }
 
     return 0;
 }
@@ -375,24 +378,27 @@ blecent_gap_event(struct ble_gap_event *event, void *arg)
     struct ble_gap_conn_desc desc;
     struct ble_hs_adv_fields fields;
     int rc;
-    MODLOG_DFLT(INFO, "\nbububububububuububu established %i\n", event->type);
+    //MODLOG_DFLT(INFO, "\nbububububububuububu established %i\n", event->type);
     switch (event->type) {
     // receiving a new advertissment packet
     case BLE_GAP_EVENT_DISC:
         rc = ble_hs_adv_parse_fields(&fields, event->disc.data,
                                      event->disc.length_data);
 
-        MODLOG_DFLT(INFO, "\nbbibiibibibibibiibibibi %i\n", event->type);
+        //MODLOG_DFLT(INFO, "\nbbibiibibibibibiibibibi %i\n", event->type);
         if (rc != 0) {
             return 0;
         }
-        MODLOG_DFLT(INFO, "\nbobobobobobobobobo %i\n", event->type);
+        //MODLOG_DFLT(INFO, "\nbobobobobobobobobo %i\n", event->type);
         /* An advertisment report was received during GAP discovery. */
         print_adv_fields(&fields);
 
-        MODLOG_DFLT(INFO, "\nbqbqbbqbabababba %i\n", event->type);
+        //MODLOG_DFLT(INFO, "\nbqbqbbqbabababba %i\n", event->type);
+
         // printing the detected address : addr_str(disc->addr)
-        MODLOG_DFLT(DEBUG, "discovered addr : %s", addr_str(&event->disc.addr) );
+
+        //MODLOG_DFLT(DEBUG, "discovered addr : %s", addr_str(&event->disc.addr) );
+
         /* Try to connect to the advertiser if it looks interesting. */
         blecent_connect_if_interesting(&event->disc);
         return 0;
@@ -422,6 +428,9 @@ blecent_gap_event(struct ble_gap_event *event, void *arg)
                 MODLOG_DFLT(ERROR, "Failed to discover services; rc=%d\n", rc);
                 return 0;
             }
+
+             /* Terminate the connection. */
+            ble_gap_terminate(event->connect.conn_handle, BLE_ERR_REM_USER_CONN_TERM);
         } else {
             /* Connection attempt failed; resume scanning. */
             MODLOG_DFLT(ERROR, "Error: Connection failed; status=%d\n",

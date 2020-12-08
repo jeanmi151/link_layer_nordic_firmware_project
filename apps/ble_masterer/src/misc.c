@@ -211,6 +211,7 @@ print_adv_fields(const struct ble_hs_adv_fields *fields)
 // compare to mac address, if it is equal return 0 otherwise 1
 bool cmp_two_addr(const uint8_t *addr1, const uint8_t *addr2, bool tgt_is_set)
 {
+    MODLOG_DFLT(DEBUG,"\nComparing addr %s with %s", addr_str(addr1), addr_str(addr2));
     if (addr1[0] == addr2[0] &&
         addr1[1] == addr2[1] &&
         addr1[2] == addr2[2] &&
@@ -218,7 +219,12 @@ bool cmp_two_addr(const uint8_t *addr1, const uint8_t *addr2, bool tgt_is_set)
         addr1[4] == addr2[4] &&
         addr1[5] == addr2[5]  && tgt_is_set)
         {
+            MODLOG_DFLT(DEBUG,"\nYEAHHHH SAME ADDDDRESSS\n");
             return false;
+        }
+        else
+        {
+            MODLOG_DFLT(DEBUG,"\nNop not same addresss\n");
         }
     return true;
 }
