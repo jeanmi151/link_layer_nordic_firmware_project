@@ -356,6 +356,7 @@ blecent_connect_if_interesting(const struct ble_gap_disc_desc *disc)
                     disc->addr.type, addr_str(disc->addr.val), rc);
         return;
     }
+
 }
 
 /**
@@ -409,6 +410,32 @@ blecent_gap_event(struct ble_gap_event *event, void *arg)
             /* Connection successfully established. */
             MODLOG_DFLT(INFO, "Connection established ");
 
+
+
+            /*
+                int ble_gap_security_initiate(uint16_t conn_handle)
+                Initiates the GAP security procedure.
+
+                int ble_gap_pair_initiate(uint16_t conn_handle)
+                Initiates the GAP pairing procedure as a master.
+
+                more detail : https://mynewt.apache.org/latest/network/ble_hs/ble_gap.html#c.ble_gap_security_initiate
+            */
+
+            rc = ble_gap_security_initiate(event->connect.conn_handle);
+            if (rc != 0) {
+                MODLOG_DFLT(INFO, "Error in starting secure connection ");
+                return 0;
+            }
+            rc = ble_gap_pair_initiate(event->connect.conn_handle);
+            if (rc != 0) {
+                MODLOG_DFLT(INFO, "Error in starting secure connection ");
+                return 0;
+            }
+
+
+
+
             rc = ble_gap_conn_find(event->connect.conn_handle, &desc);
             assert(rc == 0);
             print_conn_desc(&desc);
@@ -430,7 +457,7 @@ blecent_gap_event(struct ble_gap_event *event, void *arg)
             }
 
              /* Terminate the connection. */
-            ble_gap_terminate(event->connect.conn_handle, BLE_ERR_REM_USER_CONN_TERM);
+            //ble_gap_terminate(event->connect.conn_handle, BLE_ERR_REM_USER_CONN_TERM);
         } else {
             /* Connection attempt failed; resume scanning. */
             MODLOG_DFLT(ERROR, "Error: Connection failed; status=%d\n",
