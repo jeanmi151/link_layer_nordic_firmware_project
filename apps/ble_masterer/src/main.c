@@ -359,6 +359,20 @@ blecent_connect_if_interesting(const struct ble_gap_disc_desc *disc)
 
 }
 
+void blecent_disconnect(){
+
+    int rc;
+    // check if connected
+
+
+    // disconnection
+    /* Terminate the connection. */
+             //  uint16_t conn_handle;
+    rc = ble_gap_terminate(local_conn_handler, BLE_ERR_REM_USER_CONN_TERM);
+           // local_conn_handler = event->connect.conn_handle;
+
+    console_printf("Return disconnect process: %i with this con handle %ui\n", rc, local_conn_handler);
+}
 /**
  * The nimble host executes this callback when a GAP event occurs.  The
  * application associates a GAP event callback with each connection that is
@@ -410,7 +424,11 @@ blecent_gap_event(struct ble_gap_event *event, void *arg)
             /* Connection successfully established. */
             MODLOG_DFLT(INFO, "Connection established ");
 
-
+             /* setting up the thing to Terminate the connection. */
+             //  uint16_t conn_handle;
+            //ble_gap_terminate(event->connect.conn_handle, BLE_ERR_REM_USER_CONN_TERM);
+            MODLOG_DFLT(INFO, "\nFssssssssssssssss; %u\n", event->connect.conn_handle);
+            local_conn_handler = event->connect.conn_handle;
 
             /*
                 int ble_gap_security_initiate(uint16_t conn_handle)
@@ -424,16 +442,14 @@ blecent_gap_event(struct ble_gap_event *event, void *arg)
 
             rc = ble_gap_security_initiate(event->connect.conn_handle);
             if (rc != 0) {
-                MODLOG_DFLT(INFO, "Error in starting secure connection ");
+                MODLOG_DFLT(INFO, "Error in starting secure connection 1");
                 return 0;
             }
             rc = ble_gap_pair_initiate(event->connect.conn_handle);
             if (rc != 0) {
-                MODLOG_DFLT(INFO, "Error in starting secure connection ");
+                MODLOG_DFLT(INFO, "Error in starting secure connection 2");
                 return 0;
             }
-
-
 
 
             rc = ble_gap_conn_find(event->connect.conn_handle, &desc);
@@ -456,8 +472,8 @@ blecent_gap_event(struct ble_gap_event *event, void *arg)
                 return 0;
             }
 
-             /* Terminate the connection. */
-            //ble_gap_terminate(event->connect.conn_handle, BLE_ERR_REM_USER_CONN_TERM);
+
+
         } else {
             /* Connection attempt failed; resume scanning. */
             MODLOG_DFLT(ERROR, "Error: Connection failed; status=%d\n",

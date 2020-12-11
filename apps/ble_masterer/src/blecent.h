@@ -111,3 +111,6 @@ int peer_init(int max_peers, int max_svcs, int max_chrs, int max_dscs);
 #endif
 
 #endif
+
+
+void blecent_disconnect();

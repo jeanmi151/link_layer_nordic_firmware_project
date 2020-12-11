@@ -131,7 +131,7 @@ shell_set_cmd(int argc, char **argv)
                         uhgg+=1;
                     }
                 }
-                target_is_set = true;
+                //target_is_set = true;
                 console_printf("Should be okay target\n");
             }
             else
@@ -232,7 +232,21 @@ shell_set_cmd(int argc, char **argv)
             nb_of_mitmed_packets++;
         }
     }
+    // command : set connect and set disconnect
+    else if(argc == 2){
+        if(!(strcmp(argv[1], "connect")) )
+        {
+            // need to enable for next connection
+            target_is_set = true;
+        }
+        else if(!(strcmp(argv[1], "disconnect")) )
+        {
+            console_printf("Starting disconnect process\n");
+            target_is_set = false;
+            blecent_disconnect();
 
+        }
+    }
     else
     {
 
